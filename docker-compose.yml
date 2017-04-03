@@ -1,0 +1,66 @@
+version: '2'
+services:
+  mariadb:
+    build:
+      context: .
+      dockerfile: Dockerfile-mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pwd
+      MYSQL_DATABASE: awash_schedule
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user_pwd
+    ports:
+      - "3306:3306"
+  redis:
+    image: 'redis:3.2-alpine'
+    command: redis-server --requirepass redis_pwd
+    ports:
+      - '6679:6379'
+    volumes:
+      - 'redis:/var/lib/redis/data'
+#  elasticsearch:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-elasticsearch
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
+#    volumes:
+#      - "/usr/share/elasticsearch/data"
+#    networks:
+#      - default
+
+  app:
+    build: .
+    volumes:
+      - .:/railsapp
+    expose:
+      - "3000"
+    depends_on:
+      - mariadb
+      - redis
+    links:
+      - mariadb
+      - redis
+#      - elasticsearch
+    environment:
+      DB_NAME: awash_schedule
+      DB_USER: db_user
+      DB_PASSWORD: db_user_pwd
+      DB_HOST: mariadb
+    env_file:
+      - .env
+    stdin_open: true
+    tty: true
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    links:
+      - app
+    ports:
+      - "80:80"
+volumes:
+  redis:
+#  elasticsearch:
