@@ -11,9 +11,9 @@ module AwashSchedule
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.web_console.whitelisted_ips = '192.168.0.0/16'
-    config.web_console.whitelisted_ips = '124.111.0.0/16'
 
+    config.i18n.default_locale = :ko
+    config.time_zone = 'Seoul'
 
   end
 end
