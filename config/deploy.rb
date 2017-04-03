@@ -28,6 +28,7 @@ append :linked_files, "config/database.yml", "config/secrets.yml", ".env"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, { path: "/home/deploy/.rbenv/versions/2.4.1/lib/ruby/gems:/home/deploy/.rbenv/versions/2.4.1/bin:$PATH" }
 
 # Default value for keep_releases is 5
 set :keep_releases, 3
