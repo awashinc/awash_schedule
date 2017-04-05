@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  per_wash: 1
+  wash_type: 1
+  start_date: 2017-04-04
+  end_date: 2017-04-04
+  day_sel: 1
+  time_sel: 2017-04-04 14:20:46
+  phone: MyString
+  address: MyString
+  car_number: MyString
+  memo: MyText
+
+two:
+  name: MyString
+  per_wash: 1
+  wash_type: 1
+  start_date: 2017-04-04
+  end_date: 2017-04-04
+  day_sel: 1
+  time_sel: 2017-04-04 14:20:46
+  phone: MyString
+  address: MyString
+  car_number: MyString
+  memo: MyText

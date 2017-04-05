@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306044435) do
+ActiveRecord::Schema.define(version: 20170404081805) do
 
   create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string   "email"
     t.string   "encrypted_password",                   default: "", null: false
     t.string   "phone"
     t.string   "username"
+    t.string   "uid"
     t.text     "access_key",             limit: 65535
     t.string   "refresh_token"
     t.string   "reset_password_token"
@@ -31,6 +32,24 @@ ActiveRecord::Schema.define(version: 20170306044435) do
     t.datetime "updated_at",                                        null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "calendars", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.string   "calendar_id"
+    t.string   "name"
+    t.integer  "per_wash"
+    t.integer  "wash_type"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "day_sel"
+    t.time     "time_sel"
+    t.string   "phone"
+    t.string   "address"
+    t.string   "car_number"
+    t.text     "memo",              limit: 65535
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.text     "calendar_response", limit: 65535
   end
 
 end

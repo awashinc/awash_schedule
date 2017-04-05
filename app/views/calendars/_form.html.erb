@@ -1,87 +1,92 @@
-<%#= form_for @calendar do |f| %>
-<%= form_tag "/calendars", method: :post  do |f| %>
+<%= form_for @calendar do |f| %>
   <%#= f.error_messages %>
  
   <div class="form-group row">
-    <%= label_tag :name, "NAME", class: "col-2 col-form-label" %>
+    <%= f.label :name, "고객명", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= text_field_tag :name, "TEST_USER_#{Time.now.to_i}", class: "form-control" %>
+      <%= f.text_field :name, class: "form-control", placeholder: "고객명"  %>
     </div>
   </div>
 
 
   <div class="form-group row">
-    <%= label_tag :per_wash, "PER_WASH", class: "col-2 col-form-label" %>
+    <%= f.label :per_wash, "세차 주기", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= select_tag :per_wash, options_for_select([['Charge',0],['1Weeks',1],['2Weeks',2]]), class: "form-control" %>
+      <%= f.select :per_wash, options_for_select([['충전(1회)',0],['1주 간격',1],['2주 간격',2]], f.object.per_wash), {}, class: "form-control" %>
     </div>
   </div>
  
-
   <div class="form-group row">
-    <%= label_tag :do_start, "DoStart", class: "col-2 col-form-label" %>
+    <%= f.label :wash_type, "내외부", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= text_field_tag :do_start, "2017-03-07", class: "form-control" %>
+      <%= f.select :wash_type, options_for_select([['외부',0],['내부',1],['내외부',2]], f.object.wash_type),{}, class: "form-control" %>
+    </div>
+  </div>
+ 
+  <div class="form-group row">
+    <%= f.label :do_start, "시작일", class: "col-2 col-form-label" %>
+    <div class="col-10">
+      <%= f.text_field :start_date, class: "form-control", placeholder: Date.today.strftime("%Y-%m-%d") %>
     </div>
   </div>
 
 
   <div class="form-group row">
-    <%= label_tag :do_until, "DoUntil", class: "col-2 col-form-label" %>
+    <%= f.label :do_until, "마감일", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= text_field_tag :do_until, "2017-06-30", class: "form-control" %>
+      <%= f.text_field :end_date, class: "form-control", placeholder: Date.today.strftime("%Y-%m-%d")  %>
     </div>
   </div>
 
   <div class="form-group row">
-    <%= label_tag :day_sel, "DAY_SEL", class: "col-2 col-form-label" %>
+    <%= f.label :day_sel, "요일", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= select_tag :day_sel, options_for_select([['Mon',0],['Tues',1],['Wednes',2],['Thur',3],['Fri',4],['Sat',5],['Sun',6]]), class: "form-control" %>
+      <%= f.select :day_sel, options_for_select([['월요일',0],['화요일',1],['수요일',2],['목요일',3],['금요일',4],['토요일',5],['일요일',6]], f.object.day_sel),{} , class: "form-control" %>
       <%# Date.today.beginning_of_week => Monday %>
     </div>
   </div>
 
  
   <div class="form-group row">
-    <%= label_tag :time_sel, "TIME_SEL", class: "col-2 col-form-label" %>
+    <%= f.label :time_sel, "시간", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= select_tag :time_sel, options_for_select([['10:00','10:00'],['13:00','13:00'],['16:00','16:00']]), class: "form-control" %>
+      <%= f.select :time_sel, options_for_select([['10:00','10:00'],['13:00','13:00'],['16:00','16:00']], f.object.time_sel), {}, class: "form-control" %>
     </div>
   </div>
 
  
   <div class="form-group row">
-    <%= label_tag :phone, "PHONE", class: "col-2 col-form-label" %>
+    <%= f.label :phone, "전화번호", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= text_field_tag :phone , "010-1234-5678", class: "form-control" %>
+      <%= f.text_field :phone , class: "form-control", placeholder: "010-1234-5678" %>
     </div>
   </div>
  
   <div class="form-group row">
-    <%= label_tag :address, "ADDRESS", class: "col-2 col-form-label" %>
+    <%= f.label :address, "주소", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= text_field_tag :address, "TEST_LOCATION", class: "form-control" %>
+      <%= f.text_field :address, class: "form-control", placeholder: "서울시 강남구 ..." %>
     </div>
   </div>
 
   <div class="form-group row">
-    <%= label_tag :car_number, "CAR_NUMBER", class: "col-2 col-form-label" %>
+    <%= f.label :car_number, "차량정보", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= text_field_tag :car_number, "TEST_CAR_NUMBER", class: "form-control" %>
+      <%= f.text_field :car_number, class: "form-control", placeholder: "A5, 99허9999" %>
     </div>
   </div>
 
   <div class="form-group row">
-    <%= label_tag :memo, "MEMO", class: "col-2 col-form-label" %>
+    <%= f.label :memo, "기타사항", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= text_area_tag :memo, "TEST_MEMO_CONTENT", class: "form-control" %>
+      <%= f.text_area :memo, class: "form-control", placeholder: "기타 기타 기타" %>
     </div>
   </div>
 
 
   <div class="form-group row">
     <div class="offset-sm-2 col-sm-10">
-      <%= submit_tag "Save", class: "btn btn-primary" %>
+      <%= f.submit " Save", class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

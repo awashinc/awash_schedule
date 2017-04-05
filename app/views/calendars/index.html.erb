@@ -1,1 +1,39 @@
-<%= params[:cal_id] %>
+<div class="search_form">
+   <%= form_tag calendars_path, remote: true, class: "form-inline",  :method => :get  do %>
+     <div class="form-group">
+       <%= label_tag  :name, "고객명"  %>
+       <%= text_field_tag :name, params[:name], :class => 'form-control'  %>
+     </div>
+
+     <%= submit_tag "Search", class: "btn btn-warning" %>
+   <% end %>
+</div>
+
+
+
+<p><%= link_to "New Calendar", new_calendar_path, class: "btn btn-primary" %></p>
+
+
+<table class="table table-hove">
+  <tr>
+    <th>Name</th>
+    <th>WeekDay</th>
+    <th>DateRange</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% for calendar in @calendars %>
+    <tr>
+      <td><%= calendar.name %></td>
+      <td><%= calendar.start_date.strftime("%Y-%m-%d %H:%M") if calendar.start_date.present? %> ~ <%= calendar.end_date.strftime("%Y-%m-%d %H:%M") if calendar.end_date.present? %></td>
+      <td><%= link_to "Edit", edit_calendar_path(calendar), class: "btn btn-warning" %>
+      <%= link_to "Destroy", calendar, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger" %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate @calendars %>
+
+<p><%= link_to "New Calendar", new_calendar_path, class: "btn btn-primary" %></p>
+
+
