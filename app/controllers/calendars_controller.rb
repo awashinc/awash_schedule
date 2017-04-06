@@ -69,19 +69,19 @@ class CalendarsController < ApplicationController
         @cal.login_with_refresh_token(current_admin_user.refresh_token)
 
         @response = @cal.create_event do  |e|
-          start_time = Time.parse("#{@calendar.start_date} #{cal.time_sel}")
+          start_time = Time.parse("#{@calendar.start_date} #{@calendar.time_sel}")
           e.start_time = start_time
           e.end_time = start_time + 2.hours
-          until_time = Time.parse("#{cal.end_date} #{cal.time_sel}")  + 2.hours
-          case cal.per_wash
+          until_time = Time.parse("#{@calendar.end_date} #{@calendar.time_sel}")  + 2.hours
+          case @calendar.per_wash
           when "1"
             e.recurrence = {freq: "weekly", interval: 1,  until: until_time  }
           when "2"
             e.recurrence = {freq: "weekly", interval: 2,  until: until_time }
           end
-          e.title= cal.name
-          e.location = cal.address
-          e.description = "#{cal.car_number}, #{cal.wash_type}, #{cal.memo}"
+          e.title= @calendar.name
+          e.location = @calendar.address
+          e.description = "전화번호: #{@calendar.phone}\n#{@calendar.car_number}, #{@calendar.wash_type}, #{@calendar.memo}"
         end
 
         @calendar.update_attributes(calendar_response: @response.raw, calendar_id: @response.raw["id"])
