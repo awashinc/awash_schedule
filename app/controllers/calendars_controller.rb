@@ -74,9 +74,9 @@ class CalendarsController < ApplicationController
           e.end_time = start_time + 2.hours
           until_time = Time.parse("#{@calendar.end_date} #{@calendar.time_sel}")  + 2.hours
           case @calendar.per_wash
-          when "1"
+          when 1
             e.recurrence = {freq: "weekly", interval: 1,  until: until_time  }
-          when "2"
+          when 2
             e.recurrence = {freq: "weekly", interval: 2,  until: until_time }
           end
           e.title= @calendar.name
@@ -116,9 +116,9 @@ class CalendarsController < ApplicationController
         e.end_time = start_time + 2.hours
         until_time = Time.parse("#{@calendar.end_date} #{@calendar.time_sel}")  + 2.hours
         case @calendar.per_wash
-        when "1"
+        when 1
           e.recurrence = {freq: "weekly", interval: 1,  until: until_time  }
-        when "2"
+        when 2
           e.recurrence = {freq: "weekly", interval: 2,  until: until_time }
         end
         e.title= @calendar.name
