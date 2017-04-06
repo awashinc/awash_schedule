@@ -6,7 +6,7 @@
 server "13.124.57.84", user: "deploy", roles: %w{app db web},
 ssh_options: {
 #     user: "deploy", # overrides user setting above
-  keys: %w(/Users/kai/Copy/amazon/awash_admin.cer),
+  keys: %w(/Users/kai/Copy/amazon/awash_admin.cer /Users/mac/Desktop/project/amazon/awash_admin.cer),
   forward_agent: false,
   auth_methods: %w(publickey password)
 #     # password: "please use keys"
