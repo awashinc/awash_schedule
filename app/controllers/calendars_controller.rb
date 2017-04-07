@@ -1,6 +1,6 @@
 class CalendarsController < ApplicationController
 
-  before_action :authenticate_admin_user!
+#  before_action :authenticate_admin_user!
   before_action :set_calendar_auth, only: [:create, :update, :destroy]
 
   def index

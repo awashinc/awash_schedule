@@ -15,3 +15,6 @@
 //= require turbolinks
 //= require tether
 //= require bootstrap
+//= require moment.min
+//= require moment.locales
+//= require mdDateTimePicker

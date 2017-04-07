@@ -1,0 +1,9 @@
+.form-control::placeholder{
+  color: #CF162C;
+  transition: opacity 250ms ease-in-out;
+
+}
+.form-control:focus::placeholder{
+  opacity: 0.5;
+
+}

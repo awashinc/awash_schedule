@@ -136,6 +136,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    md-date-time-picker-rails (2.1.2)
     metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (3.1)
@@ -285,6 +286,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   listen (~> 3.0.5)
+  md-date-time-picker-rails
   mocha
   mysql2
   nested_form
@@ -305,4 +307,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.14.4
+   1.14.6
