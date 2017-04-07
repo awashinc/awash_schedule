@@ -123,7 +123,7 @@ class CalendarsController < ApplicationController
         end
         e.title= @calendar.name
         e.location = @calendar.address
-        e.description = "#{@calendar.car_number}, #{@calendar.wash_type}, #{@calendar.memo}"
+        e.description = "전화번호: #{@calendar.phone}\n#{@calendar.car_number}, #{@calendar.wash_type}, #{@calendar.memo}"
       end
 
       @calendar.update_attributes(calendar_response: @response.raw )
