@@ -69,19 +69,23 @@ class CalendarsController < ApplicationController
         @cal.login_with_refresh_token(current_admin_user.refresh_token)
 
         @response = @cal.create_event do  |e|
-          start_time = Time.zone.parse("#{@calendar.start_date} #{@calendar.time_sel}+0900")
-          e.start_time = start_time
-          e.end_time = start_time + 2.hours
-          until_time = Time.zone.parse("#{@calendar.end_date} #{@calendar.time_sel}+0900")  + 2.hours
+          #start_time = Time.zone.parse("#{@calendar.start_date} #{@calendar.time_sel}+0900")
+          #e.start_time = start_time
+          # e.end_time = start_time + 2.hours
+          #until_time = Time.zone.parse("#{@calendar.end_date} #{@calendar.time_sel}+0900")  + 2.hours
+
+          start_date = Time.zone.parse("#{@calendar.start_date}")
+          e.all_day = start_date
+          until_date = Time.zone.parse("#{@calendar.end_date}")
           case @calendar.per_wash
           when 1
-            e.recurrence = {freq: "weekly", interval: 1,  until: until_time  }
+            e.recurrence = {freq: "weekly", interval: 1,  until: until_date }
           when 2
-            e.recurrence = {freq: "weekly", interval: 2,  until: until_time }
+            e.recurrence = {freq: "weekly", interval: 2,  until: until_date }
           end
           e.title= @calendar.name
           e.location = @calendar.address
-          e.description = "전화번호: #{@calendar.phone}\n#{@calendar.car_number}, #{@calendar.wash_type}, #{@calendar.memo}"
+          e.description = "전화번호: #{@calendar.phone}\n#{@calendar.car_number}, #{@calendar.memo}"
         end
 
         @calendar.update_attributes(calendar_response: @response.raw, calendar_id: @response.raw["id"])
@@ -111,10 +115,14 @@ class CalendarsController < ApplicationController
 
       @calendar.start_date = @calendar.start_date.beginning_of_week + @calendar.day_sel.to_i.days
       @response = @cal.find_or_create_event_by_id(@calendar.calendar_id)do  |e|
-        start_time = Time.zone.parse("#{@calendar.start_date} #{@calendar.time_sel}+0900")
-        e.start_time = start_time
-        e.end_time = start_time + 2.hours
-        until_time = Time.zone.parse("#{@calendar.end_date} #{@calendar.time_sel}+0900")  + 2.hours
+        #start_time = Time.zone.parse("#{@calendar.start_date} #{@calendar.time_sel}+0900")
+        #e.start_time = start_time
+        #e.end_time = start_time + 2.hours
+        #until_time = Time.zone.parse("#{@calendar.end_date} #{@calendar.time_sel}+0900")  + 2.hours
+
+        start_date = Time.zone.parse("#{@calendar.start_date}")
+        e.all_day = start_date
+        until_date = Time.zone.parse("#{@calendar.end_date}")
         case @calendar.per_wash
         when 1
           e.recurrence = {freq: "weekly", interval: 1,  until: until_time  }
@@ -123,7 +131,7 @@ class CalendarsController < ApplicationController
         end
         e.title= @calendar.name
         e.location = @calendar.address
-        e.description = "전화번호: #{@calendar.phone}\n#{@calendar.car_number}, #{@calendar.wash_type}, #{@calendar.memo}"
+        e.description = "전화번호: #{@calendar.phone}\n#{@calendar.car_number}, #{@calendar.memo}"
       end
 
       @calendar.update_attributes(calendar_response: @response.raw )
