@@ -12,14 +12,14 @@
   <div class="form-group row">
     <%= f.label :per_wash, "세차 주기", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= f.select :per_wash, options_for_select([['충전(1회)',0],['1주 간격',1],['2주 간격',2]], f.object.per_wash), {}, class: "form-control" %>
+      <%= f.select :per_wash, options_for_select([['충전(1회)','0'],['1주 간격','1'],['2주 간격','2']], f.object.per_wash), {}, class: "form-control" %>
     </div>
   </div>
  
   <div class="form-group row">
     <%= f.label :wash_type, "내외부", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= f.select :wash_type, options_for_select([['외부',0],['내부',1],['내외부',2]], f.object.wash_type),{}, class: "form-control" %>
+      <%= f.select :wash_type, options_for_select([['외부','0'],['내부','1'],['내외부','2']], f.object.wash_type),{}, class: "form-control" %>
     </div>
   </div>
  
@@ -36,12 +36,12 @@
     <div class="col-10">
       <%= f.text_field :end_date, class: "form-control", placeholder: Date.today.strftime("%Y-%m-%d")  %>
     </div>
-  </div>
+ </div>
 
   <div class="form-group row">
     <%= f.label :day_sel, "요일", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= f.select :day_sel, options_for_select([['월요일',0],['화요일',1],['수요일',2],['목요일',3],['금요일',4],['토요일',5],['일요일',6]], f.object.day_sel),{} , class: "form-control" %>
+      <%= f.select :day_sel, options_for_select([['월요일','0'],['화요일','1'],['수요일','2'],['목요일','3'],['금요일','4'],['토요일','5'],['일요일','6']], f.object.day_sel),{} , class: "form-control" %>
       <%# Date.today.beginning_of_week => Monday %>
     </div>
   </div>
@@ -50,7 +50,7 @@
   <div class="form-group row">
     <%= f.label :time_sel, "시간", class: "col-2 col-form-label" %>
     <div class="col-10">
-      <%= f.select :time_sel, options_for_select([['10:00','10:00'],['13:00','13:00'],['16:00','16:00']], f.object.time_sel), {}, class: "form-control" %>
+      <%= f.select :time_sel, options_for_select([['10:00','10:00'],['13:00','13:00'],['16:00','16:00']], (f.object.time_sel.strftime("%H:%M") if f.object.time_sel.present?)  ), {}, class: "form-control" %>
     </div>
   </div>
 
