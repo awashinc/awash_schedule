@@ -1,23 +1,53 @@
 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse mb-4">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="#">Top navbar</a>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
-        </ul>
-        <form class="form-inline mt-2 mt-md-0">
-          <input class="form-control mr-sm-2" placeholder="Search" type="text">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <%= link_to root_path do %>
+    <%= image_tag "logo.png", size: '140x32', alt: "Logo" %>
+  <% end %>
+  <div class="collapse navbar-collapse" id="awash-header">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <%= link_to root_path, class: "nav-link" do %>
+          Home
+          <span class="sr-only">(current)</span>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <div class="dropdown-menu">
+          <div class="dropdown-item">asdfasd</div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item">asdfasd</div>
+        </div>
+      </li>
+
+    </ul>
+    <% if current_admin_user.present? ||  Rails.env == "development" %>
+      <div class="dropdown">
+        <div class="dropdown-toggle user-status" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</div>
+          <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-item">asdfasd</div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item">
+              <%= link_to destroy_admin_user_session_path, method: :delete do %>
+                <i class="fa fa-sign-out"></i>로그아웃</a>
+              <% end %>
+        </div>
+        </div>
       </div>
-    </nav>
+    <% end %>
+
+    <!--
+
+    <form class="form-inline mt-2 mt-md-0">
+      <input class="form-control mr-sm-2" placeholder="Search" type="text">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    -->
+  </div>
+</nav>
