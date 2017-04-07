@@ -114,7 +114,7 @@ class CalendarsController < ApplicationController
 
 
       @calendar.start_date = @calendar.start_date.beginning_of_week + @calendar.day_sel.to_i.days
-      @response = @cal.find_or_create_event_by_id(@calendar.calendar_id)do  |e|
+      @response = @cal.find_or_create_event_by_id(@calendar.calendar_id) do  |e| 
         #start_time = Time.zone.parse("#{@calendar.start_date} #{@calendar.time_sel}+0900")
         #e.start_time = start_time
         #e.end_time = start_time + 2.hours
@@ -125,9 +125,9 @@ class CalendarsController < ApplicationController
         until_date = Time.zone.parse("#{@calendar.end_date}")
         case @calendar.per_wash
         when 1
-          e.recurrence = {freq: "weekly", interval: 1,  until: until_time  }
+          e.recurrence = {freq: "weekly", interval: 1,  until: until_date  }
         when 2
-          e.recurrence = {freq: "weekly", interval: 2,  until: until_time }
+          e.recurrence = {freq: "weekly", interval: 2,  until: until_date  }
         end
         e.title= @calendar.name
         e.location = @calendar.address
