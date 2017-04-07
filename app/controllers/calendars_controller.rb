@@ -69,10 +69,10 @@ class CalendarsController < ApplicationController
         @cal.login_with_refresh_token(current_admin_user.refresh_token)
 
         @response = @cal.create_event do  |e|
-          start_time = Time.parse("#{@calendar.start_date} #{@calendar.time_sel}")
+          start_time = Time.zone.parse("#{@calendar.start_date} #{@calendar.time_sel}")
           e.start_time = start_time
           e.end_time = start_time + 2.hours
-          until_time = Time.parse("#{@calendar.end_date} #{@calendar.time_sel}")  + 2.hours
+          until_time = Time.zone.parse("#{@calendar.end_date} #{@calendar.time_sel}")  + 2.hours
           case @calendar.per_wash
           when 1
             e.recurrence = {freq: "weekly", interval: 1,  until: until_time  }
@@ -111,10 +111,10 @@ class CalendarsController < ApplicationController
 
       @calendar.start_date = @calendar.start_date.beginning_of_week + @calendar.day_sel.to_i.days
       @response = @cal.find_or_create_event_by_id(@calendar.calendar_id)do  |e|
-        start_time = Time.parse("#{@calendar.start_date} #{@calendar.time_sel}")
+        start_time = Time.zone.parse("#{@calendar.start_date} #{@calendar.time_sel}")
         e.start_time = start_time
         e.end_time = start_time + 2.hours
-        until_time = Time.parse("#{@calendar.end_date} #{@calendar.time_sel}")  + 2.hours
+        until_time = Time.zone.parse("#{@calendar.end_date} #{@calendar.time_sel}")  + 2.hours
         case @calendar.per_wash
         when 1
           e.recurrence = {freq: "weekly", interval: 1,  until: until_time  }
@@ -130,10 +130,10 @@ class CalendarsController < ApplicationController
 
 
 
-      redirect_to @calendar, :notice  => "Successfully updated calendar."
+      redirect_to calendars_path, :notice  => "Successfully updated calendar."
     else
       render :action => 'edit'
-    end
+    end 
   end
 
   def destroy
