@@ -1,0 +1,22 @@
+<table class="table table-hove">
+  <tr>
+    <th>고객명</th>
+    <th>기간</th>
+    <th>장소</th>
+    <th></th>
+  </tr>
+  <% for event in @event_list%>
+    <% info = event.raw %>
+    <tr>
+      <td><%= info["summary"] %></td>
+      <td>
+        <%= info["start"]["date"] if info["start"]["date"].present?  %>
+        <%= "#{DateTime.parse(info["start"]["dateTime"]).strftime("%Y-%m-%d %H:%M")} ~  #{DateTime.parse(info["end"]["dateTime"]).strftime("%Y-%m-%d %H:%M")}"  if info["start"]["dateTime"].present? %>  </td>
+      <td><%= info["location"] %></td>
+      <td>
+        <%= link_to "수정", specific_edit_calendar_path(@calendar, calendar_id: info["id"]), class: "btn btn-warning" %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+

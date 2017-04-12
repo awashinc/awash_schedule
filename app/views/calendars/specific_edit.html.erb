@@ -1,0 +1,51 @@
+<%= form_tag  specific_update_calendar_path(@calendar), method: :put do  %>
+ 
+  <%= hidden_field_tag :event_id, @event.id %>
+
+  <div class="form-group row">
+    <%= label_tag :name, "고객명", class: "col-2 col-form-label" %>
+    <div class="col-10">
+      <%= text_field_tag :name, @info["summary"], class: "form-control", placeholder: "고객명"  %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= label_tag :do_start, "시작일", class: "col-2 col-form-label" %>
+    <div class="col-10">
+      <%= text_field_tag :start_date, @info["start"]["date"], class: "form-control", placeholder: Date.today.strftime("%Y-%m-%d") if @info["start"]["date"].present? %>
+      <%= text_field_tag :start_date, Date.parse(@info["start"]["dateTime"]).strftime("%Y-%m-%d"), class: "form-control", placeholder: Date.today.strftime("%Y-%m-%d") if @info["start"]["dateTime"].present?%>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= label_tag :time_sel, "시간", class: "col-2 col-form-label" %>
+    <div class="col-10">
+        <%= radio_button_tag :is_custom, 0, !@time_custom %>
+        <%= select_tag :time_sel, options_for_select([['10:00','10:00'],['13:00','13:00'],['16:00','16:00']]), prompt: "선택", disabled: @time_custom, class: "form-control" %>
+        <%= radio_button_tag :is_custom, 1, @time_custom%>
+        <%= text_field_tag :time_sel_custom, @info["start"]["dateTime"].present?? DateTime.parse(@info["start"]["dateTime"]).strftime("%H:%M") : "", class: "form-control", placeholder: "09:00", disabled: !@time_custom %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= label_tag :address, "주소", class: "col-2 col-form-label" %>
+    <div class="col-10">
+      <%= text_field_tag :address, @info["location"], class: "form-control", placeholder: "서울시 강남구 ..." %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= label_tag :description, "기타사항", class: "col-2 col-form-label" %>
+    <div class="col-10">
+      <%= text_area_tag :description, @info["description"], class: "form-control", placeholder: "기타 기타 기타" %>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <div class="offset-sm-2 col-sm-10">
+      <%= submit_tag " Save", class: "btn btn-primary" %>
+    </div>
+  </div>
+
+<% end %>

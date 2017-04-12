@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404081805) do
+ActiveRecord::Schema.define(version: 20170412083524) do
 
   create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string   "email"
@@ -47,9 +47,30 @@ ActiveRecord::Schema.define(version: 20170404081805) do
     t.string   "address"
     t.string   "car_number"
     t.text     "memo",              limit: 65535
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.text     "calendar_response", limit: 65535
+    t.integer  "is_extend",                       default: 0
+  end
+
+  create_table "day_forecasts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.integer  "forecast_unixtime"
+    t.datetime "forecast_datetime"
+    t.string   "condition"
+    t.string   "icon_url"
+    t.text     "all_response",      limit: 65535
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.text     "calendar_response", limit: 65535
+  end
+
+  create_table "half_forecasts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.datetime "point_date"
+    t.string   "weekday"
+    t.string   "icon_url"
+    t.text     "forecast_text", limit: 65535
+    t.text     "all_response",  limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
 end

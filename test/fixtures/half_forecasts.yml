@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  point_date: 2017-04-12 17:35:24
+  weekday: MyString
+  forecast_text: MyText
+
+two:
+  point_date: 2017-04-12 17:35:24
+  weekday: MyString
+  forecast_text: MyText

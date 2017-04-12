@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  forecast_unixtime: 1
+  forecast_datetime: 2017-04-12 17:32:13
+  condition: MyString
+  icon_url: MyString
+  all_response: MyText
+
+two:
+  forecast_unixtime: 1
+  forecast_datetime: 2017-04-12 17:32:13
+  condition: MyString
+  icon_url: MyString
+  all_response: MyText

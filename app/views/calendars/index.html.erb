@@ -54,6 +54,7 @@
         <%= link_to "개별 수정", specific_list_calendar_path(calendar), class: "btn btn-warning" %>
         <%= link_to "전체수정", edit_calendar_path(calendar), class: "btn btn-warning" %>
         <%= link_to "삭제", calendar, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger" %>
+        <%= link_to "연장", new_calendar_path(extend_id: calendar), class: "btn btn-warning" %>
       </td>
     </tr>
   <% end %>
