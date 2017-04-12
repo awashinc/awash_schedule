@@ -63,8 +63,7 @@ class DashboardsController < ApplicationController
   def fetch_forecast
     require 'net/http'
     require 'json'
- 
-    url = "http://api.wunderground.com/api/5f18058b9ff23939/forecast/lang:KR/q/37.5,127.05.json"
+    url = "http://api.wunderground.com/api/#{ENV['WUNDERGROUND_KEY']}/forecast/lang:KR/q/37.5,127.05.json"
     uri = URI(url)
     response = Net::HTTP.get(uri)
     json = JSON.parse(response)
