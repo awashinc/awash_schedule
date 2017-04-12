@@ -1,10 +1,11 @@
 class CalendarsController < ApplicationController
 
-  before_action :authenticate_admin_user!
-  before_action :set_calendar_auth, only: [:create, :update, :destroy]
+#  before_action :authenticate_admin_user!
+#  before_action :set_calendar_auth, only: [:create, :update, :destroy, :specific_list, :specific_edit, :specific_update]
 
   def index
     @calendars = Calendar.page(params[:page]).per(params[:per])
+    @soon_end_calendars = Calendar.where("calendars.is_extend = 0 and calendars.end_date <= ?",Date.current + 1.week)
   end
 
   def show
@@ -13,6 +14,7 @@ class CalendarsController < ApplicationController
 
   def new
     @calendar = Calendar.new
+    @calendar = Calendar.find(params[:extend_id]).dup_calendar if params[:extend_id].present?
   end
 
   def create
@@ -27,7 +29,6 @@ class CalendarsController < ApplicationController
 =end
 
     @calendar = Calendar.new(calendar_param)
-
 
 
 =begin
@@ -59,6 +60,8 @@ class CalendarsController < ApplicationController
      @calendar.start_date = @calendar.start_date.beginning_of_week + @calendar.day_sel.to_i.days
 
      if @calendar.save
+
+        Calendar.where(id: params[:extend_id]).first.update_extend if params[:extend_id].present?
 
         @cal = Google::Calendar.new(client_id: ENV['GOOGLE_API_CLIENT_ID'],
            :client_secret => ENV['GOOGLE_API_SECRET'],
@@ -141,7 +144,7 @@ class CalendarsController < ApplicationController
       redirect_to calendars_path, :notice  => "Successfully updated calendar."
     else
       render :action => 'edit'
-    end 
+    end
   end
 
   def destroy
@@ -149,6 +152,52 @@ class CalendarsController < ApplicationController
     @calendar.destroy
     redirect_to calendars_url, :notice => "Successfully destroyed calendar."
   end
+
+  def specific_list
+
+    @calendar = Calendar.find(params[:id])
+    cal_uid = eval(@calendar.calendar_response)["iCalUID"]
+    @event_list =  @cal.find_events("&singleEvents=true&iCalUID=#{cal_uid}&orderBy=startTime")
+  end
+
+  def specific_edit
+    @calendar = Calendar.find(params[:id])
+    @event = @cal.find_event_by_id(params[:calendar_id]).first
+    @info = @event.raw
+    @time_custom = @info["start"]["dateTime"].present? &&  !["10:00","13:00","16:00"].include?(DateTime.parse(@info["start"]["dateTime"]).strftime("%H:%M"))
+
+  end
+
+  def specific_update
+    @calendar = Calendar.find(params[:id])
+
+    @response = @cal.find_or_create_event_by_id(params[:event_id]) do  |e|
+
+      if params[:is_custom] == "1"
+        start_time = Time.zone.parse("#{params[:start_date]} #{params[:time_sel_custom]}+0900")
+        e.start_time = start_time
+        e.end_time = start_time + 2.hours
+      elsif params[:time_sel].present?
+        start_time = Time.zone.parse("#{params[:start_date]} #{params[:time_sel]}+0900")
+        e.start_time = start_time
+        e.end_time = start_time + 2.hours
+      else
+        start_date = Time.zone.parse("#{params[:start_date]}")
+        e.all_day = start_date
+      end
+
+      e.title = params[:name]
+      e.location = params[:address]
+      e.description = params[:description]
+    end
+
+   redirect_to specific_list_calendar_path(@calendar)
+
+
+
+  end
+
+
 
   private
   def set_calendar_auth

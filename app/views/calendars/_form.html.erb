@@ -1,6 +1,7 @@
 <%= form_for @calendar do |f| %>
   <%#= f.error_messages %>
- 
+  <%= hidden_field_tag :extend_id, params[:extend_id] %>
+
   <div class="form-group row">
     <%= f.label :name, "고객명", class: "col-2 col-form-label" %>
     <div class="col-10">
@@ -15,14 +16,14 @@
       <%= f.select :per_wash, options_for_select([['충전(1회)','0'],['1주 간격','1'],['2주 간격','2']], f.object.per_wash), {}, class: "form-control" %>
     </div>
   </div>
- 
+
   <div class="form-group row">
     <%= f.label :wash_type, "내외부", class: "col-2 col-form-label" %>
     <div class="col-10">
       <%= f.select :wash_type, options_for_select([['외부','0'],['내부','1'],['내외부','2']], f.object.wash_type),{}, class: "form-control" %>
     </div>
   </div>
- 
+
   <div class="form-group row">
     <%= f.label :do_start, "시작일", class: "col-2 col-form-label" %>
     <div class="col-10">

@@ -13,21 +13,48 @@
 
 <p><%= link_to "New Calendar", new_calendar_path, class: "btn btn-primary" %></p>
 
+<% if @soon_end_calendars.present? %>
+  <h3> 종료 임박 </h3>
+  <table class="table table-hove">
+     <tr>
+      <th>고객명</th>
+      <th>날짜</th>
+      <th>기간</th>
+      <th>주기</th>
+      <th></th>
+    </tr>
+    <% for calendar in @soon_end_calendars %>
+      <tr>
+        <td><%= calendar.name %></td>
+        <td><%= calendar.start_date.strftime("%Y-%m-%d") if calendar.start_date.present? %> ~ <%= calendar.end_date.strftime("%Y-%m-%d") if calendar.end_date.present? %></td>
+        <td><%= calendar.wash_recursive_str %></td>
+        <td>
+          <%= link_to "개별 수정", specific_list_calendar_path(calendar), class: "btn btn-warning" %>
+          <%= link_to "연장", new_calendar_path(extend_id: calendar), class: "btn btn-warning" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
 
 <table class="table table-hove">
   <tr>
-    <th>Name</th>
-    <th>WeekDay</th>
-    <th>DateRange</th>
-    <th></th>
+    <th>고객명</th>
+    <th>날짜</th>
+    <th>기간</th>
+    <th>주기</th>
     <th></th>
   </tr>
   <% for calendar in @calendars %>
     <tr>
       <td><%= calendar.name %></td>
-      <td><%= calendar.start_date.strftime("%Y-%m-%d %H:%M") if calendar.start_date.present? %> ~ <%= calendar.end_date.strftime("%Y-%m-%d %H:%M") if calendar.end_date.present? %></td>
-      <td><%= link_to "Edit", edit_calendar_path(calendar), class: "btn btn-warning" %>
-      <%= link_to "Destroy", calendar, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger" %></td>
+      <td><%= calendar.start_date.strftime("%Y-%m-%d") if calendar.start_date.present? %> ~ <%= calendar.end_date.strftime("%Y-%m-%d") if calendar.end_date.present? %></td>
+      <td><%= calendar.wash_recursive_str %></td>
+      <td>
+        <%= link_to "개별 수정", specific_list_calendar_path(calendar), class: "btn btn-warning" %>
+        <%= link_to "전체수정", edit_calendar_path(calendar), class: "btn btn-warning" %>
+        <%= link_to "삭제", calendar, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger" %>
+      </td>
     </tr>
   <% end %>
 </table>
