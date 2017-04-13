@@ -4,4 +4,4 @@
 #    :provider_ignores_state => true}
 #end
 
-OmniAuth.config.full_host = Rails.env.production? ? 'http://admin.awash.co.kr' : 'http://7e964fa3.ngrok.io'
+OmniAuth.config.full_host = Rails.env.production? ? 'http://admin.awash.co.kr' : 'http://913036bb.ngrok.io'

@@ -4,6 +4,8 @@ class DashboardsController < ApplicationController
   # GET /dashboards
   # GET /dashboards.json
   def index
+    @day_forecasts = DayForecast.where("forecast_datetime >= ?", Time.current.beginning_of_day)
+    @half_forecasts = HalfForecast.where(point_date: Config.last.half_forecast_point_date)
   end
 
   # GET /dashboards/1

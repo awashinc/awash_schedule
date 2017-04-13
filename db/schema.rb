@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412083524) do
+ActiveRecord::Schema.define(version: 20170413060024) do
 
   create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string   "email"
@@ -51,6 +51,12 @@ ActiveRecord::Schema.define(version: 20170412083524) do
     t.datetime "updated_at",                                  null: false
     t.text     "calendar_response", limit: 65535
     t.integer  "is_extend",                       default: 0
+  end
+
+  create_table "configs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.datetime "half_forecast_point_date"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "day_forecasts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|

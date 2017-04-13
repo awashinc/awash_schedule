@@ -14,6 +14,7 @@ module AwashSchedule
 
     #config.i18n.default_locale = :ko
     config.time_zone = 'Seoul'
+    config.active_record.default_timezone = :local
 
   end
 end

@@ -1,7 +1,7 @@
 class CalendarsController < ApplicationController
 
-#  before_action :authenticate_admin_user!
-#  before_action :set_calendar_auth, only: [:create, :update, :destroy, :specific_list, :specific_edit, :specific_update]
+  before_action :authenticate_admin_user!
+  before_action :set_calendar_auth, only: [:create, :update, :destroy, :specific_list, :specific_edit, :specific_update]
 
   def index
     @calendars = Calendar.page(params[:page]).per(params[:per])

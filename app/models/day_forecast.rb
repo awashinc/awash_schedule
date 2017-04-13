@@ -6,6 +6,8 @@ class DayForecast < ApplicationRecord
     days.each do |day|
       if DayForecast.where(forecast_unixtime: day["date"]["epoch"]).blank?
         self.create(forecast_unixtime: day["date"]["epoch"], forecast_datetime: DateTime.parse(day["date"]["pretty"]), condition: day["conditions"], icon_url: day["icon_url"], all_response: day)
+      else
+        DayForecast.where(forecast_unixtime: day["date"]["epoch"]).first.update_attributes(forecast_datetime: DateTime.parse(day["date"]["pretty"]), condition: day["conditions"], icon_url: day["icon_url"], all_response: day)
       end
     end
   end

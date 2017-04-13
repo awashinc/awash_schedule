@@ -1,0 +1,15 @@
+.day-forecast{
+  width:20%;
+  display:inline-block;
+}
+
+.half-forecast{
+  width:22%;
+  display:inline-block;
+  .forecast-desc{
+    height: 120px;
+    line-height: 20px;
+  }
+}
+
+

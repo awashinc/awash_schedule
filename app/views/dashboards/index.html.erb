@@ -1,0 +1,29 @@
+<h2>나알씨</h2>
+<% @day_forecasts.each do |day_forecast| %>
+  <div class="day-forecast">
+    <div>
+      <%= day_forecast.forecast_datetime.strftime("%m-%d") %>
+    </div>
+    <div>
+      <%= image_tag day_forecast.icon_url %>
+    </div>
+    <div>
+      <%= day_forecast.condition %>
+    </div>
+  </div>
+<% end %>
+
+<h2>나알씨</h2>
+<% @half_forecasts.each do |half_forecast| %>
+  <div class="half-forecast">
+    <div>
+      <%= half_forecast.weekday %>
+    </div>
+    <div>
+      <%= image_tag half_forecast.icon_url %>
+    </div>
+    <div class="forecast-desc">
+      <%= half_forecast.forecast_text %>
+    </div>
+  </div>
+<% end %>
